@@ -104,7 +104,7 @@ exports.removeWishlist = async (req, res) => {
         let { productId } = req.body;
 
         let wishlist = await Wishlist.findOneAndUpdate(
-            { userId, isDelete: false },
+            { userId, isDeleted: false },
             {
                 $pull: {
                     items: { productId: productId }

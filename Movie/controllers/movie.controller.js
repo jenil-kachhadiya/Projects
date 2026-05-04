@@ -7,17 +7,20 @@ exports.addMovie = async (req, res) => {
       movieImage: req.file ? req.file.path : undefined,
     };
 
+    if (req.body.genre) {
+      data.genre = req.body.genre.split(",").map((g) => g.trim());
+    }
+
     const movie = await Movie.create(data);
 
     return res.status(201).json({
       message: "Registered successfully",
-      data: movie ,
+      data: movie,
     });
   } catch (error) {
     return res.status(500).json({
-    message: error.message
-});
-
+      message: error.message,
+    });
   }
 };
 
@@ -56,6 +59,10 @@ exports.updateMovie = async (req, res) => {
       ...req.body,
     };
 
+    if (req.body.genre) {
+      data.genre = req.body.genre.split(",").map((g) => g.trim());
+    }
+
     if (req.file) {
       data.movieImage = req.file.path;
     }
@@ -68,11 +75,19 @@ exports.updateMovie = async (req, res) => {
       return res.status(404).json({ message: "Movie not found" });
     }
 
+    if (req.originalUrl.startsWith("/admin")) {
+      return res.redirect("/admin/movies");
+    }
+
     res.status(200).json({
       message: "Movie updated successfully",
       data: updated,
     });
   } catch (error) {
+    if (req.originalUrl.startsWith("/admin")) {
+      return res.status(500).send(error.message);
+    }
+
     res.status(500).json({ error: error.message });
   }
 };
@@ -89,10 +104,18 @@ exports.deleteMovie = async (req, res) => {
       return res.status(404).json({ message: "Movie not found" });
     }
 
+    if (req.originalUrl.startsWith("/admin")) {
+      return res.redirect("/admin/movies");
+    }
+
     res.status(200).json({
       message: "Movie deleted successfully",
     });
   } catch (error) {
+    if (req.originalUrl.startsWith("/admin")) {
+      return res.status(500).send(error.message);
+    }
+
     res.status(500).json({ error: error.message });
   }
 };

@@ -94,7 +94,7 @@ exports.updateShow = async (req, res) => {
 exports.deleteShow = async (req, res) => {
   try {
     const show = await Show.findByIdAndUpdate(
-      req.params.id,{ isDelete: true },{ new: true });
+      req.params.id,{ isDeleted: true },{ new: true });
 
     if (!show) {
       return res.status(404).json({ message: "Show not found" });

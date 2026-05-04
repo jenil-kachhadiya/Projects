@@ -5,7 +5,7 @@ exports.AddProduct = async (req, res) => {
         let imagePaths = [];
 
         if (req.files && req.files.length > 0) {
-            imagePaths = req.files.map(file => file.filename); 
+            imagePaths = req.files.map(file => file.path); 
         }
 
         const product = await Product.create({
@@ -77,7 +77,7 @@ exports.updateProduct = async (req, res) => {
         if (!product) return res.status(404).json({ message: "Product not found" });    
         let images = product.images;
         if (req.files && req.files.length > 0) {
-            images = req.files.map(file => `/uploads/${file.filename}`);
+            images = req.files.map(file => file.path);
         }   
         product = await Product.findByIdAndUpdate(
             req.params.id,

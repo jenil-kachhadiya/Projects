@@ -9,6 +9,8 @@ const subCategoryRoute = require("./subcategory.route");
 const productRoute = require("./product.route"); 
 const cartRoute = require("./cart.route")
 const wishlistRoute = require("./wishlist.route")
+const adminRoutes = require("./admin.route");
+const orderRoute = require("./order.route");
 
 router.post("/register",validator, UploadImage.single("image"), registerUser);
 router.post("/login", loginUser);
@@ -19,6 +21,9 @@ router.use("/subcategory", subCategoryRoute);
 router.use("/products", productRoute);
 router.use("/cart", cartRoute)
 router.use("/wishlist", wishlistRoute);
+router.use("/admin", adminRoutes);
+router.use("/orders", orderRoute);
+
 module.exports = router;
 
 /*

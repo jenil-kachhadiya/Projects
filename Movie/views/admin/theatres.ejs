@@ -1,0 +1,26 @@
+<%- include('../partials/header') %>
+<%- include('../partials/sidebar') %>
+
+<div class="ml-64 p-6">
+  <h1 class="text-3xl font-bold mb-6">Theatres</h1>
+
+  <table class="w-full bg-white rounded shadow">
+    <thead class="bg-gray-200">
+      <tr>
+        <th class="p-3 text-left">Name</th>
+        <th class="p-3 text-left">Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% theatres.forEach(theatre => { %>
+        <tr class="border-t-2">
+          <td class="p-3"><%= theatre.name %></td>
+          <td class="p-3"><%= theatre.location %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

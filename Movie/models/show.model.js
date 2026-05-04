@@ -20,7 +20,7 @@ const showSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    isDelete: {
+    isDeleted: {
         type: Boolean,
         default: false
     },

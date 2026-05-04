@@ -26,7 +26,7 @@ const bookingSchema = new mongoose.Schema({
         enum: ["pending", "completed", "failed"],
         default: "pending"
     },
-    isDelete: {
+    isDeleted: {
         type: Boolean,
         default: false
     }

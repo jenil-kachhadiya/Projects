@@ -22,7 +22,7 @@ exports.getAllTheatres = async (req, res) => {
     sortBy = sortBy || "createdAt";
     order = order === "asc" ? 1 : -1;
 
-    let query = { isDelete: false };
+    let query = { isDeleted: false };
 
     if (search) {
       query.$or = [
@@ -51,9 +51,7 @@ exports.updateTheatre = async (req, res) => {
     );
 
     if (!updated) {
-      return res.status(404).json({
-        message: "Theatre not found"
-      });
+      return res.status(404).json({ message: "Theatre not found" });
     }
 
     res.status(200).json({

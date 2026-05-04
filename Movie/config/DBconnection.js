@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Admin = require('../models/admin.model')
 
 const connectDB = async () => {
     try {
@@ -9,3 +10,4 @@ const connectDB = async () => {
     }
 };
 module.exports = connectDB;
+

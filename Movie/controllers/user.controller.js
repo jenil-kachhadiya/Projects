@@ -50,7 +50,7 @@ exports.getAllUser = async (req, res) => {
         let sortBy = req.query.sortBy || "createdAt";
         let order = req.query.order === "asc" ? 1 : -1;
 
-        let users = await User.find({ isDelete: false }).sort({ [sortBy]: order });
+        let users = await User.find({ isDeleted: false }).sort({ [sortBy]: order });
 
         res.json(users);
 

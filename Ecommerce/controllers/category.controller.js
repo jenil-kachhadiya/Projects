@@ -10,7 +10,7 @@ exports.addCategory = async (req, res) => {
         
         let imagepath = " ";
         if (req.file) {
-            imagepath = `/uploads/${req.file.filename}`;
+            imagepath = req.file.path;
         }
         category = await Category.create({ categoryName: req.body.categoryName, image: imagepath });
         res.status(201).json({ message: "Category created", data: category });
@@ -64,7 +64,7 @@ exports.updatedCategory = async (req, res) => {
         }   
         let imagepath = category.image;
         if (req.file) {
-            imagepath = `/uploads/${req.file.filename}`;
+            imagepath = req.file.path;
         }
         category.categoryName = req.body.categoryName || category.categoryName;
         category.image = imagepath;

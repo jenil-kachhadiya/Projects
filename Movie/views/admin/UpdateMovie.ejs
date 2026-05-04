@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Update Movie</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+    <%- include('../partials/sidebar') %>
+
+        <div class="ml-64 p-6">
+            <div class="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow">
+                <div class="flex justify-between items-center mb-6">
+                    <h1 class="text-2xl font-bold">Update Movie</h1>
+                    <a href="/admin/movies" class="bg-gray-500 text-white px-4 py-2 rounded">
+                        Back
+                    </a>
+                </div>
+
+                <form action="/admin/movie/update/<%= movie._id %>" method="POST" enctype="multipart/form-data">
+                    <div class="mb-4">
+                        <label class="block mb-2 font-medium">Title</label>
+                        <input type="text" name="title" value="<%= movie.title %>"
+                            class="w-full border rounded px-3 py-2" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block mb-2 font-medium">Language</label>
+                        <input type="text" name="language" value="<%= movie.language %>"
+                            class="w-full border rounded px-3 py-2" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block mb-2 font-medium">Genre</label>
+                        <input type="text" name="genre" value="<%= movie.genre ? movie.genre.join(', ') : '' %>"
+                            class="w-full border rounded px-3 py-2" placeholder="Action, Comedy, Drama" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block mb-2 font-medium">Duration</label>
+                        <input type="number" name="duration" value="<%= movie.duration %>"
+                            class="w-full border rounded px-3 py-2" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block mb-2 font-medium">Current Image</label>
+                        <% if (movie.movieImage) { %>
+                            <img src="/<%= movie.movieImage %>" alt="<%= movie.title %>"
+                                class="w-40 h-56 object-cover rounded border">
+                            <% } else { %>
+                                <p class="text-gray-500">No image uploaded</p>
+                                <% } %>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block mb-2 font-medium">New Image</label>
+                        <input type="file" name="movieImage" class="w-full border rounded px-3 py-2">
+                    </div>
+
+                    <button type="submit" class="bg-blue-600 text-white px-5 py-2 rounded">
+                        Update Movie
+                    </button>
+                </form>
+            </div>
+        </div>
+</body>
+
+</html>

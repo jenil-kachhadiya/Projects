@@ -10,7 +10,7 @@ exports.registerUser = async (req, res) => {
 
   let imagepath = " ";
   if (req.file) {
-    imagepath = `/uploads/${req.file.filename}`;
+    imagepath = req.file.path;
   }
   let hash = await bcrypt.hash(req.body.password, 10);
 
@@ -29,7 +29,8 @@ exports.loginUser = async (req, res) => {
   let isMatch = await bcrypt.compare(req.body.password, user.password);
   if (!isMatch) return res.send("Invalid credentials");
 
-  let token = jwt.sign({ id: user._id }, process.env.SECRET_KEY);
+  let token = jwt.sign(  { id: user._id, role: user.role }, 
+    process.env.SECRET_KEY);
 
   res
     .cookie("token", token, { httpOnly: true })
@@ -41,8 +42,6 @@ exports.getAllUser = async (req, res) => {
   res.json(users);
 };
 
-const bcrypt = require("bcrypt");
-
 exports.updateProfile = async (req, res) => {
   try {
     const { password } = req.body;
@@ -52,13 +51,10 @@ exports.updateProfile = async (req, res) => {
       const hashedPassword = await bcrypt.hash(password, 10);
       updateData.password = hashedPassword;
     }
-
     const updatedUser = await User.findByIdAndUpdate(
       req.user._id, updateData, { new: true }
     );
-
     return res.status(200).json({ message: "Profile updated successfully",data: updatedUser});
-
   } catch (error) { console.log(error);
     res.status(500).json({message: "Error updating profile",error: error.message});
   }
@@ -76,7 +72,7 @@ exports.getprofile = async (req, res) => {
   }
 };
 
-exports.deleteProfile = async (req, res) => {
+exports.deleteProfile = async   (req, res) => {
   await User.findByIdAndUpdate(req.user.id, { isDeleted: true });
 
   res.json({ message: "Account deleted (soft)" });
@@ -105,7 +101,6 @@ exports.changePassword = async (req, res) => {
     res.status(200).json({message: "Password updated successfully",data: user});
 
   } catch (error) {
-    res.status(500).json({message: "Error updating password",
-      error: error.message});
+    res.status(500).json({message: "Error updating password", error: error.message});
   }
 };

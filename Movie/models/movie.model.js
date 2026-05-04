@@ -15,7 +15,7 @@ const movieSchema = new mongoose.Schema({
     movieImage: {
         type: String
     },
-    isDelete: {
+    isDeleted: {
         type: Boolean,
         default: false
     },

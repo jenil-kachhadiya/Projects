@@ -5,9 +5,9 @@ const { verifyToken } = require("../middleware/AuthToken");
 const verifyRole = require('../middleware/VerifyRole')
 const uploadImage = require("../middleware/uploadImage");
 
-router.post("/add-product", verifyToken, uploadImage.array("images"), verifyRole('admin'), AddProduct);
+router.post("/add-product", verifyToken, verifyRole('admin'), uploadImage.array("images"), AddProduct);
 router.get("/all-products", getAllProducts);
-router.put("/update/:id", uploadImage.array("images"), verifyToken, verifyRole('admin'), updateProduct);
+router.put("/update/:id", verifyToken, verifyRole('admin'), uploadImage.array("images"), updateProduct);
 router.delete("/delete/:id", verifyToken, verifyRole('admin'), deleteProduct);
 
 module.exports = router;

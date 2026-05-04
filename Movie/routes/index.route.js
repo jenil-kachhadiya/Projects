@@ -6,6 +6,7 @@ const theatreRoute = require('../routes/theatre.route')
 const movieRoute = require('../routes/movie.route')
 const showRoute = require('../routes/show.route')
 const bookingRoute = require('../routes/booking.route')
+const adminRoute = require('../routes/admin.route')
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
@@ -15,5 +16,6 @@ router.use("/theatre", theatreRoute)
 router.use("/movie", movieRoute)
 router.use("/show", showRoute)
 router.use("/booking", bookingRoute)
+router.use("/admin", adminRoute)
 
 module.exports = router;

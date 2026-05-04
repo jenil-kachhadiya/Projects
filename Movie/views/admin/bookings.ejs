@@ -1,0 +1,30 @@
+<%- include('../partials/header') %>
+<%- include('../partials/sidebar') %>
+
+<div class="ml-64 p-6">
+  <h1 class="text-3xl font-bold mb-6">Bookings</h1>
+
+  <table class="w-full bg-white rounded shadow">
+    <thead class="bg-gray-200">
+      <tr>
+        <th class="p-3">User</th>
+        <th class="p-3">Movie</th>
+        <th class="p-3">Seats</th>
+        <th class="p-3">Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% bookings.forEach(b => { %>
+        <tr class="border-t-2">
+          <td class="p-3 text-center"><%= b.userId.name %></td>
+          <td class="p-3 text-center"><%= b.showId.movieId.title %></td>
+          <td class="p-3 text-center"><%= b.seats.join(', ') %></td>
+          <td class="p-3 text-center">₹<%= b.totalAmount %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

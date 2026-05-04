@@ -59,7 +59,7 @@ exports.createBooking = async (req, res) => {
 
 exports.getMyBookings = async (req, res) => {
   try {
-    const bookings = await Booking.find({ userId: req.user._id, isDelete: false})
+    const bookings = await Booking.find({ userId: req.user._id, isDeleted: false})
     .populate({
       path: "showId",
       select: "showTime ticketPrice",
@@ -90,7 +90,7 @@ exports.cancelBooking = async (req, res) => {
   try {
     const booking = await Booking.findById(req.params.id);
 
-    if (!booking || booking.isDelete) {
+    if (!booking || booking.isDeleted) {
       return res.status(404).json({ message: "Booking not found" });
     }
     const show = await Show.findById(booking.showId);

@@ -13,7 +13,7 @@ const cartSchema = mongoose.Schema({
             }
         }
     ],
-    isDelete: {
+    isDeleted: {
         type: Boolean,
         default: false
     }
